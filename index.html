@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./website/css/styles.css">
+    <title>How to make USRP-based OpenBTS boards - URAN-1 / SRAD-1 work?</title>
+</head>
+<body>
+
+    <h2>How to make USRP-based OpenBTS boards - URAN-1 / SRAD-1 work?</h2>
+
+    <h3>Get OpenBTS ISO</h3>
+
+    <p>(Apply modified-USRP1 with 52MHz, URAN-1 and SRAD-1)</p>
+
+    <ul>
+        <li><a href="https://rfagora.s3.amazonaws.com/image/en.iplinkme.iso" target="_blank">USRP1-52M-Clock-BTS.iso</a> - inside an autostarted OpenBTS 4.0 </li>
+        <li><a href="https://drive.google.com/open?id=1wqb00XMShJUPrKVSh-3gWSepQO52eSeS" target="_blank"> OpenBTS 4.0 manual </a></li>
+        <li><a href="https://drive.google.com/file/d/1MlA3izu0nXWeqhZD7fzO5xmdUo4z0JIr/view?usp=sharing" target="_blank"> OpenBTS for Dummies </a></li>
+        <li><a href="https://drive.google.com/file/d/0B3ss_wNog58SSTB5VWRlUTBaMlE/view?usp=sharing" target="_blank"> Installation Manual</a></li>
+    </ul>
+
+    <h3>Some Testing Commands</h3>
+
+    <p>(the root user)</p>
+
+    <ul>
+        <li> Testing whether the system is connected </li>    
+        <pre><code>usrp_probe</code></pre>
+
+        <li> Testing usb </li>    
+        <pre><code>/usr/local/share/gnuradio/examples/usrp/usrp_benchmark_usb.py</code></pre>
+
+        <li> View board </li>   
+        <pre><code>lsusrp</code></pre>
+
+        <li> Reprogram frequent band from 900 Mhz to 1800 Mhz </li>      
+        <pre><code>/usr/local/src/gnuradio-3.4.2/usrp/firmware/src/usrp2/burn-db-eeprom -t rfx1800_mimo_b -A –f</code></pre>
+
+        <li> Emission the signal </li>  
+        <pre><code>/usr/local/share/gnuradio/examples/digital/benchmark_tx.py -f 900M -T A</code></pre>
+
+        <li> Received signal via fft </li>  
+        <pre><code>usrp_fft.py -f 900M -R A</code></pre>
+    </ul>
+
+    <h3> Other Documents </h3>
+
+    <ul>
+        <li><a href="http://s3.amazonaws.com/rfagora/URAN-1+Schematics.pdf" target="_blank"> URAN-1 Board Schematics </a>  </li>
+        <li><a href="https://rfagora.s3.amazonaws.com/SRAD+Schematics.pdf" target="_blank"> SRAD-1  Schematics </a></li>
+        <li><a href="https://drive.google.com/file/d/0B3ss_wNog58SMlNYTjM4Q1Italk/view?usp=sharing" target="_blank"> USRP1 the Circuit schematics </a></li>
+    </ul>
+
+</body>
+</html>

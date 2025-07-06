@@ -52,6 +52,19 @@ sudo dmidecode --type memory | less
 df -h
 ```
 
+-   how to resolve the error:
+
+```
+rfnoc is not in the sudoers file. This incident will be reported.
+```
+
+If you have the root password, you can log in directly:
+
+```bash
+su -
+usermod -aG sudo rfnoc
+```
+
 ##  Install Vivado 2019.1 on Ubuntu
 
 -   [Installing Vivado, Vitis, & PetaLinux 2021.2 on Ubuntu 18.04](https://www.hackster.io/whitney-knitter/installing-vivado-vitis-petalinux-2021-2-on-ubuntu-18-04-0d0fdf)

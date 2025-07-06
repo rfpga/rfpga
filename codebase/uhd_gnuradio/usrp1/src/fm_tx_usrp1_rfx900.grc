@@ -1,0 +1,146 @@
+options:
+  parameters:
+    author: ""
+    catch_exceptions: 'True'
+    category: "[GRC Hier Blocks]"
+    cmake_opt: ""
+    comment: ""
+    copyright: ""
+    description: ""
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: ".:"
+    id: fm_tx_usrp1_rfx900
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ""
+    realtime_scheduling: ""
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ""
+    title: "FM TX USRP1 RFX900"
+    window_size: ""
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ""
+    value: 500e3
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 12]
+    rotation: 0
+    state: enabled
+
+- name: signal_source_0
+  id: analog_sig_source_x
+  parameters:
+    amp: '1.0'
+    comment: ""
+    freq: '1000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0.0'
+    phase: '0.0'
+    samp_rate: samp_rate
+    waveform: analog.GR_SIN_WAVE
+    type: float  # ✅ FIXED: ensures float output
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [100, 100]
+    rotation: 0
+    state: enabled
+
+- name: multiply_const_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    comment: ""
+    const: '0.5'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [250, 100]
+    rotation: 0
+    state: enabled
+
+- name: float_to_complex_0
+  id: blocks_float_to_complex
+  parameters:
+    comment: ""
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [400, 100]
+    rotation: 0
+    state: enabled
+
+- name: uhd_usrp_sink_0
+  id: uhd_usrp_sink
+  parameters:
+    ant0: TX/RX
+    bw0: '0'
+    center_freq0: 915e6
+    clock_rate: 0e0
+    comment: ""
+    dev_addr: '"type=usrp1,tx_subdev_spec=A:0"'
+    dev_args: '""'
+    gain0: '20'
+    len_tag_name: '""'
+    lo_export0: 'False'
+    lo_source0: internal
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nchan: '1'
+    norm_gain0: 'False'
+    num_mboards: '1'
+    otw: ""
+    samp_rate: samp_rate
+    sd_spec0: ""
+    show_lo_controls: 'False'
+    start_time: '-1.0'
+    stream_args: ""
+    stream_chans: "[]"
+    sync: sync
+    time_source0: ""
+    type: fc32
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [550, 100]
+    rotation: 0
+    state: enabled
+
+connections:
+- [signal_source_0, '0', multiply_const_0, '0']
+- [multiply_const_0, '0', float_to_complex_0, '0']
+- [float_to_complex_0, '0', uhd_usrp_sink_0, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.11.0.0git-980-g25047da6
